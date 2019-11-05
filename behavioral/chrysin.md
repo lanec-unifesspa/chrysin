@@ -333,9 +333,81 @@ TimeOA_plot <- ggplot(rat, aes(x = factor(Treatment), y = Time_OpenArms, colour 
 TimeOA_plot
 ```
 
-6) Join plots
+6) Time spent head-dipping
+6.1) Main test
 ```{r}
-grid.arrange(EntriesOA_plot, EntriesCA_plot, TotalEntries_plot, PercentEntries_plot, TimeOA_plot, nrow = 4)
+independence_test(Time_HeadDipping ~ Treatment, data = rat)
+```
+
+6.2) Produce post-hoc tests for main effects
+```{r}
+PT_TimeHD = pairwisePermutationTest(Time_HeadDipping ~ Treatment, data = rat, method="fdr")
+PT_TimeHD
+```
+
+6.3) Draw plot
+```{r}
+TimeHD_plot <- ggplot(rat, aes(x = factor(Treatment), y = Time_HeadDipping, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 20, label = "a") + annotate("text", x = 2, y = 35, label = "a") + annotate("text", x = 3, y = 50, label = "a") + annotate("text", x = 4, y = 25, label = "a") + labs(x = "Treatment", y = "Time spent head-dipping (s)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 70, label = "G", size = 6)
+TimeHD_plot
+```
+
+7) Head-dipping events
+7.1) Main test
+```{r}
+independence_test(HeadDipping_N ~ Treatment, data = rat)
+```
+
+7.2) Produce post-hoc tests for main effects
+```{r}
+PT_HDN = pairwisePermutationTest(HeadDipping_N ~ Treatment, data = rat, method="fdr")
+PT_HDN
+```
+
+7.3) Draw plot
+```{r}
+HD_plot <- ggplot(rat, aes(x = factor(Treatment), y = HeadDipping_N, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 20, label = "a") + annotate("text", x = 2, y = 20, label = "a") + annotate("text", x = 3, y = 25, label = "a") + annotate("text", x = 4, y = 20, label = "a") + labs(x = "Treatment", y = "Number of head-dipping events (N)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 40, label = "H", size = 6)
+HD_plot
+```
+
+8) Time in SAP
+8.1) Main test
+```{r}
+independence_test(Time_SAP ~ Treatment, data = rat)
+```
+
+8.2) Produce post-hoc tests for main effects
+```{r}
+PT_TimeSAP = pairwisePermutationTest(Time_SAP ~ Treatment, data = rat, method="fdr")
+PT_TimeSAP
+```
+
+8.3) Draw plot
+```{r}
+TimeSAP_plot <- ggplot(rat, aes(x = factor(Treatment), y = Time_SAP, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 50, label = "a") + annotate("text", x = 2, y = 25, label = "a") + annotate("text", x = 3, y = 20, label = "a") + annotate("text", x = 4, y = 10, label = "a") + labs(x = "Treatment", y = "Time in stretched-attend posture (s)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 50, label = "I", size = 6)
+TimeSAP_plot
+```
+
+9) SAP frequency
+8.1) Main test
+```{r}
+independence_test(SAP_N ~ Treatment, data = rat)
+```
+
+8.2) Produce post-hoc tests for main effects
+```{r}
+PT_SAPN = pairwisePermutationTest(SAP_N ~ Treatment, data = rat, method="fdr")
+PT_SAPN
+```
+
+8.3) Draw plot
+```{r}
+SAP_plot <- ggplot(rat, aes(x = factor(Treatment), y = SAP_N, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 17, label = "a") + annotate("text", x = 2, y = 16, label = "a") + annotate("text", x = 3, y = 8, label = "b") + annotate("text", x = 4, y = 8, label = "b") + labs(x = "Treatment", y = "Frequency of stretched-attend posture (N)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 20, label = "J", size = 6)
+SAP_plot
+```
+
+9) Join plots
+```{r}
+grid.arrange(EntriesOA_plot, EntriesCA_plot, TotalEntries_plot, PercentEntries_plot, TimeOA_plot, TimeHD_plot, HD_plot, TimeSAP_plot, SAP_plot, nrow = 4)
 ```
 
 * Run ANOVAs with permutation tests for main effects (based on https://rcompanion.org/rcompanion/d_06a.html) for the locomotor activity test
@@ -346,7 +418,7 @@ independence_test(Time_OpenArms ~ Treatment, data = rat)
 ```
 1.2) Draw plot
 ```{r}
-CrossedSquares_plot <- ggplot(rat, aes(x = factor(Treatment), y = Crossed_Squares, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 70, label = "a") + annotate("text", x = 2, y = 45, label = "a") + annotate("text", x = 3, y = 55, label = "a") + annotate("text", x = 4, y = 45, label = "a") + labs(x = "Treatment", y = "Squares crossed (N)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 100, label = "B", size = 6)
+CrossedSquares_plot <- ggplot(rat, aes(x = factor(Treatment), y = Crossed_Squares, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 70, label = "a") + annotate("text", x = 2, y = 45, label = "a") + annotate("text", x = 3, y = 55, label = "a") + annotate("text", x = 4, y = 45, label = "a") + labs(x = "Treatment", y = "Squares crossed (N)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 100, label = "A", size = 6)
 CrossedSquares_plot
 ```
 
@@ -357,7 +429,7 @@ independence_test(Grooming ~ Treatment, data = rat)
 ```
 2.2) Draw plot
 ```{r}
-Grooming_plot <- ggplot(rat, aes(x = factor(Treatment), y = Grooming, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 80, label = "a") + annotate("text", x = 2, y = 80, label = "a") + annotate("text", x = 3, y = 80, label = "a") + annotate("text", x = 4, y = 80, label = "a") + labs(x = "Treatment", y = "Time spent grooming (s)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 300, label = "C", size = 6)
+Grooming_plot <- ggplot(rat, aes(x = factor(Treatment), y = Grooming, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 80, label = "a") + annotate("text", x = 2, y = 80, label = "a") + annotate("text", x = 3, y = 80, label = "a") + annotate("text", x = 4, y = 80, label = "a") + labs(x = "Treatment", y = "Time spent grooming (s)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 300, label = "B", size = 6)
 Grooming_plot
 ```
 
@@ -375,10 +447,10 @@ PT_Rearing
 
 3.2) Draw plot
 ```{r}
-Rearing_plot <- ggplot(rat, aes(x = factor(Treatment), y = Rearing, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 50, label = "a") + annotate("text", x = 2, y = 80, label = "a") + annotate("text", x = 3, y = 80, label = "b") + annotate("text", x = 4, y = 50, label = "a") + labs(x = "Treatment", y = "Time spent rearing (s)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 300, label = "D", size = 6)
+Rearing_plot <- ggplot(rat, aes(x = factor(Treatment), y = Rearing, colour = Treatment)) + geom_boxplot(outlier.shape = NA) + geom_point(position = position_dodge(width = 0.75), alpha = 0.5) + annotate("text", x = 1, y = 50, label = "a") + annotate("text", x = 2, y = 80, label = "a") + annotate("text", x = 3, y = 80, label = "b") + annotate("text", x = 4, y = 50, label = "a") + labs(x = "Treatment", y = "Time spent rearing (s)") + guides(colour=FALSE) + annotate("text", x = 4.5, y = 300, label = "C", size = 6)
 Rearing_plot
 ```
 
 4) Join plots
 ```{r}
-grid.arrange(blank, CrossedSquares_plot, Grooming_plot, Rearing_plot, nrow = 2)
+grid.arrange(CrossedSquares_plot, Grooming_plot, Rearing_plot, nrow = 1)
