@@ -209,7 +209,7 @@ grid.arrange(TW_plot, Dur_plot, Trans_plot, RA_plot, ES_plot, Thigmo_plot, Freez
 B) Rats
 * Load data
 ```{r}
-x1 <- getURL("https://raw.githubusercontent.com/lanec-unifesspa/chrysin/master/chrysin-EPM_OFT.csv")
+x1 <- getURL("https://raw.githubusercontent.com/lanec-unifesspa/chrysin/master/behavioral/chrysin-EPM_OFT.csv")
 rat <- read.csv(text = x1)
 rat$Treatment <- as.factor(rat$Treatment)
 View(rat)
